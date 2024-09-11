@@ -63,8 +63,6 @@ jobs:
       - name: Test Docker Build Local (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
         run: |
-          pwd
-          ls -lart ./docker
           docker build --no-cache -t ${{ env.CFM_TEST_VERSION }} ./docker/.
           docker rmi ${{ env.CFM_TEST_VERSION }}
         env:
