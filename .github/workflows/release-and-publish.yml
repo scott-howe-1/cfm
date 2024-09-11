@@ -64,7 +64,7 @@ jobs:
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
         run: |
           ls -lart ./docker
-          docker build --no-cache -t ${{ env.CFM_TEST_VERSION }} ./docker/Dockerfile
+          docker build --no-cache -t ${{ env.CFM_TEST_VERSION }} docker/Dockerfile
           docker rmi ${{ env.CFM_TEST_VERSION }}
         env:
           CFM_TEST_VERSION: cfm-test:v${{ env.NEXT_VERSION }}
