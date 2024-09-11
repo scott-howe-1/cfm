@@ -58,22 +58,23 @@ jobs:
           sed -i 's/1\.x\.x/${{ env.NEXT_VERSION }}/g' ./cmd/cxl-host/service/parameters.go
           sed -i 's/1\.x\.x/${{ env.NEXT_VERSION }}/g' ./webui/package.json
 
-      # Test build to just make sure that it runs.  Remove once CI\CD matures.
-      - name: Test Build Local (Conditional)
+      # Test build to just make sure that it runs.
+      #TODO: Remove once CI\CD matures.
+      - name: Test Docker Build Local (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
-        #TODO: CFM update required
         run: |
-          make build-go
-          make clean-go
+          docker build --no-cache -t ${{ env.CFM_LATEST_VERSION }} ./docker/Dockerfile
+          docker rmi ${{ env.CFM_LATEST_VERSION }}
+        env:
+          CFM_TEST_VERSION: cfm-test:v${{ env.NEXT_VERSION }}
 
       # Manually create the GitHub Release assets for upload.  Wanted them versioned.
       - name: Create distribution assets (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
-        #TODO: CFM update required??
         run: |
           mkdir -p /tmp/dist
-          zip -r /tmp/dist/repo.zip . -x "./node_modules/*" -x "./.git/*"
-          tar --exclude='./node_modules' --exclude='./.git'  -czf /tmp/dist/repo.tar.gz .
+          zip -r /tmp/dist/cfm-${{ env.NEXT_VERSION }}-test.zip . -x "./node_modules/*" -x "./.git/*"
+          tar --exclude='./node_modules' --exclude='./.git'  -czf /tmp/dist/cfm-${{ env.NEXT_VERSION }}-test.tar.gz .
 
       - name: Run Semantic Release (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
@@ -91,9 +92,7 @@ jobs:
 
       - name: Docker Image Build (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
-        #TODO: CFM update required???
-        # run: make build-docker-versioned VERSION=${{ env.NEXT_VERSION }}
-        run: docker build --no-cache -t ${{ env.CFM_NEXT_VERSION }} -t ${{ env.CFM_LATEST_VERSION }} .
+        run: docker build --no-cache -t ${{ env.CFM_NEXT_VERSION }} -t ${{ env.CFM_LATEST_VERSION }} ./docker/Dockerfile
         env:
           CFM_NEXT_VERSION: ${{ env.IMAGE_NAME }}:v${{ env.NEXT_VERSION }}
           CFM_LATEST_VERSION: ${{ env.IMAGE_NAME }}:latest
