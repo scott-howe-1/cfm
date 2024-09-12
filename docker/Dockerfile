@@ -7,7 +7,8 @@ ENV BASEPATH=/cfm
 # Copy whole repo into the image
 COPY . ${BASEPATH}
 
-RUN ls -lart /cfm/api/cfm-openapi.yaml
+RUN pwd
+RUN ls -lart
 
 # Validating ${OPENAPI_YAML} using openapi-generator-cli
 RUN docker-entrypoint.sh validate -i ${BASEPATH}/${OPENAPI_YAML}
