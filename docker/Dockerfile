@@ -7,6 +7,8 @@ ENV BASEPATH=/cfm
 # Copy whole repo into the image
 COPY . ${BASEPATH}
 
+RUN ls -lart /cfm/api/cfm-openapi.yaml
+
 # Validating ${OPENAPI_YAML} using openapi-generator-cli
 RUN docker-entrypoint.sh validate -i ${BASEPATH}/${OPENAPI_YAML}
 RUN docker-entrypoint.sh validate -i ${BASEPATH}/${OPENAPI_REDFISH_YAML}
@@ -16,7 +18,7 @@ RUN docker-entrypoint.sh generate -i ${BASEPATH}/${OPENAPI_YAML} -g go-server -o
 
 # Generating ${OPENAPI_YAML} go client using openapi-generator-cli
 RUN docker-entrypoint.sh generate -i ${BASEPATH}/${OPENAPI_YAML} -g go -o ${BASEPATH}/pkg/client -p isGoSubmodule=true,withGoMod=false --package-name client --ignore-file-override ${BASEPATH}/api/ignore/.openapi-generator-ignore-client -t ${BASEPATH}/api/templates/go
-	
+
 # workaround for withGoMod=false not functioning with openapi-generator
 RUN	rm ${BASEPATH}/pkg/client/go.mod
 RUN	rm ${BASEPATH}/pkg/client/go.sum
