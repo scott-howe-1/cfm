@@ -37,7 +37,7 @@ func main() {
 	ctx := context.Background()
 	ctx, err = settings.InitContext(os.Args, ctx)
 	if err != nil {
-		fmt.Printf("ERROR: parsing parameters, err=%v\n ", err)
+		fmt.Printf("ERROR: parsing parameters, err=%v\n  ", err)
 		os.Exit(1)
 	}
 
