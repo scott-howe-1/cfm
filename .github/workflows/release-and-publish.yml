@@ -92,7 +92,7 @@ jobs:
 
       - name: Docker Image Build (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
-        run: docker build --no-cache -t ${{ env.CFM_NEXT_VERSION }} -t ${{ env.CFM_LATEST_VERSION }} ./docker/Dockerfile
+        run: docker build --no-cache -t ${{ env.CFM_NEXT_VERSION }} -t ${{ env.CFM_LATEST_VERSION }} -f ./docker/Dockerfile .
         env:
           CFM_NEXT_VERSION: ${{ env.IMAGE_NAME }}:v${{ env.NEXT_VERSION }}
           CFM_LATEST_VERSION: ${{ env.IMAGE_NAME }}:latest
