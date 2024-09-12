@@ -5,10 +5,7 @@ ENV OPENAPI_REDFISH_YAML=api/redfish-openapi.yaml
 ENV BASEPATH=/cfm
 
 # Copy whole repo into the image
-COPY ../ ${BASEPATH}
-
-RUN pwd
-RUN ls -lart /cfm
+COPY . ${BASEPATH}
 
 # Validating ${OPENAPI_YAML} using openapi-generator-cli
 RUN docker-entrypoint.sh validate -i ${BASEPATH}/${OPENAPI_YAML}
