@@ -57,6 +57,8 @@ jobs:
           sed -i 's/1\.x\.x/${{ env.NEXT_VERSION }}/g' ./cmd/cfm-service/main.go
           sed -i 's/1\.x\.x/${{ env.NEXT_VERSION }}/g' ./cmd/cxl-host/service/parameters.go
           sed -i 's/1\.x\.x/${{ env.NEXT_VERSION }}/g' ./webui/package.json
+          pwd
+          ls -lart
 
       # Test build to just make sure that it runs.
       #TODO: Remove once CI\CD matures.
