@@ -8,7 +8,7 @@ ENV BASEPATH=/cfm
 COPY . ${BASEPATH}
 
 RUN pwd
-RUN ls -lart
+RUN ls -lart /cfm
 
 # Validating ${OPENAPI_YAML} using openapi-generator-cli
 RUN docker-entrypoint.sh validate -i ${BASEPATH}/${OPENAPI_YAML}
