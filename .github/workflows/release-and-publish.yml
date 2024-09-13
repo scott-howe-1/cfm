@@ -75,9 +75,12 @@ jobs:
         run: |
           pwd
           mkdir -p /tmp/dist
-          cd /
+          cd ..
+          pwd
           zip -r /tmp/dist/${{ env.ARCHIVE_NAME }}.zip cfm -x ".git/"
           tar --exclude='.git/*' -czf /tmp/dist/${{ env.ARCHIVE_NAME }}.tar.gz cfm
+          cd cfm
+          pwd
         env:
           ARCHIVE_NAME: cfm-${{ env.NEXT_VERSION }}-versioned
 
