@@ -69,7 +69,7 @@ jobs:
         env:
           CFM_TEST_IMAGE: cfm-test-image:v${{ env.NEXT_VERSION }}
 
-      # Manually create the GitHub Release assets for upload.  Updates source code with new version number.
+      # Manually create separate GitHub Release assets for upload using source code with updated version number.
       - name: Create Release Assets for Semantic Release (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
         run: |
