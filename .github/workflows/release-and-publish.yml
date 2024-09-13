@@ -73,10 +73,10 @@ jobs:
       - name: Create distribution assets (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
         run: |
-          mkdir -p /${{ env.ARCHIVE_FOLDER }}
-          cp -r . /${{ env.ARCHIVE_FOLDER }}
-          zip -r /tmp/dist/${{ env.ARCHIVE_FOLDER }}.zip /${{ env.ARCHIVE_FOLDER }} -x ".git/"
-          tar --exclude='.git/*' -czf /tmp/dist/${{ env.ARCHIVE_FOLDER }}.tar.gz /${{ env.ARCHIVE_FOLDER }}
+          mkdir -p /tmp/dist
+          cd /
+          zip -r /tmp/dist/${{ env.ARCHIVE_FOLDER }}.zip ${{ env.ARCHIVE_FOLDER }} -x ".git/"
+          tar --exclude='.git/*' -czf /tmp/dist/${{ env.ARCHIVE_FOLDER }}.tar.gz ${{ env.ARCHIVE_FOLDER }}
         env:
           ARCHIVE_FOLDER: cfm-${{ env.NEXT_VERSION }}-versioned
 
