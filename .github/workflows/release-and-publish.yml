@@ -70,7 +70,7 @@ jobs:
           CFM_TEST_IMAGE: cfm-test-image:v${{ env.NEXT_VERSION }}
 
       # Manually create the GitHub Release assets for upload.  Wanted them versioned.
-      - name: Create distribution assets (Conditional)
+      - name: Create Release Assets for Semantic Release (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
         run: |
           mkdir -p /tmp/dist
