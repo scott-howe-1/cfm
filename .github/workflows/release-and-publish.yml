@@ -76,8 +76,8 @@ jobs:
           mkdir -p /tmp/dist
           cd ..
           cp -r ./cfm ./${{ env.ARCHIVE_FOLDER }}
-          zip -r /tmp/dist/${{ env.ARCHIVE_NAME }}.zip ${{ env.ARCHIVE_FOLDER }} -x "./.git/*" -x "./node_modules/*"
-          tar --exclude='./.git' --exclude='./node_modules' -czf /tmp/dist/${{ env.ARCHIVE_NAME }}.tar.gz ${{ env.ARCHIVE_FOLDER }}
+          zip -r /tmp/dist/${{ env.ARCHIVE_NAME }}.zip ${{ env.ARCHIVE_FOLDER }} -x "./${{ env.ARCHIVE_FOLDER }}/.git/*" -x "./${{ env.ARCHIVE_FOLDER }}/node_modules/*"
+          tar --exclude='./${{ env.ARCHIVE_FOLDER }}/.git' --exclude='./${{ env.ARCHIVE_FOLDER }}/node_modules' -czf /tmp/dist/${{ env.ARCHIVE_NAME }}.tar.gz ${{ env.ARCHIVE_FOLDER }}
           cd cfm
         env:
           ARCHIVE_FOLDER: cfm-${{ env.NEXT_VERSION }}
