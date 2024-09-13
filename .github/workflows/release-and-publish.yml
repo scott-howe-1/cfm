@@ -80,7 +80,7 @@ jobs:
           tar --exclude='./${{ env.ARCHIVE_FOLDER }}/.git' --exclude='./${{ env.ARCHIVE_FOLDER }}/node_modules' -czf /tmp/dist/${{ env.ARCHIVE_NAME }}.tar.gz ${{ env.ARCHIVE_FOLDER }}
           cd cfm
         env:
-          ARCHIVE_FOLDER: cfm-${{ env.NEXT_VERSION }}
+          ARCHIVE_FOLDER: cfm-v${{ env.NEXT_VERSION }}
           ARCHIVE_NAME: cfm-${{ env.NEXT_VERSION }}-versioned
 
       - name: Run Semantic Release (Conditional)
