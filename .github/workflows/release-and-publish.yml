@@ -73,12 +73,13 @@ jobs:
       - name: Create distribution assets (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
         run: |
+          pwd
           mkdir -p /tmp/dist
           cd /
-          zip -r /tmp/dist/${{ env.ARCHIVE_FOLDER }}.zip ${{ env.ARCHIVE_FOLDER }} -x ".git/"
-          tar --exclude='.git/*' -czf /tmp/dist/${{ env.ARCHIVE_FOLDER }}.tar.gz ${{ env.ARCHIVE_FOLDER }}
+          zip -r /tmp/dist/${{ env.ARCHIVE_NAME }}.zip cfm -x ".git/"
+          tar --exclude='.git/*' -czf /tmp/dist/${{ env.ARCHIVE_NAME }}.tar.gz cfm
         env:
-          ARCHIVE_FOLDER: cfm-${{ env.NEXT_VERSION }}-versioned
+          ARCHIVE_NAME: cfm-${{ env.NEXT_VERSION }}-versioned
 
       - name: Run Semantic Release (Conditional)
         if: ${{ env.PUBLISH_IMAGE == 'true' }}
